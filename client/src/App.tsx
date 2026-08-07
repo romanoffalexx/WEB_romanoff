@@ -168,13 +168,13 @@ const skills = [
 ]
 
 const projects = [
-  { title: 'AI-автоматизация торгов по банкротству', result: '4 000 лотов/день · точность 89% · ROI 230%', metric: '8.5 млн', metricLabel: 'чистая прибыль/год', color: '#6b7fa3' },
-  { title: 'AI-автоматизация тендерных закупок', result: '100 заявок/день · выручка +75%', metric: '+40%', metricLabel: 'выигранных тендеров', color: '#4a6fa5' },
-  { title: 'AI-скоринг лидов и маршрутизация', result: 'Скорость ×3 · конверсия +31%', metric: '2 млн', metricLabel: 'экономия ФОТ/год', color: '#5a8a7a' },
-  { title: 'Архитектура AI-ассистента СБЕР-тройки', result: 'Утверждённая архитектура для финтех-экосистемы', metric: 'LLM+RAG', metricLabel: 'pipeline', color: '#3d6b8a' },
-  { title: 'CRM-платформа с AI-агентным кодингом', result: 'Автогенерация модулей, AI-ответы, аналитика чатов', metric: 'AI-CRM', metricLabel: 'full-stack', color: '#6b7fa3' },
-  { title: 'AI-анализ Telegram-чатов', result: 'Авто-выявление задач, сентимент, дашборд', metric: '24/7', metricLabel: 'мониторинг', color: '#4a6fa5' },
-  { title: 'Архитектура Web App — Andara Energy', result: 'Стек, модель данных, интеграции, безопасность', metric: 'Roadmap', metricLabel: 'ready-to-build', color: '#5a8a7a' },
+  { title: 'AI-автоматизация торгов по банкротству', result: '4 000 лотов/день · точность 89% · ROI 230%', metric: '8.5 млн', metricLabel: 'чистая прибыль/год', color: '#6b7fa3', business: '8.5 млн ₽ чистой прибыли в год. Автоматизация заменила ручной труд аналитиков — экономия ФОТ и рост маржи.' },
+  { title: 'AI-автоматизация тендерных закупок', result: '100 заявок/день · выручка +75%', metric: '+40%', metricLabel: 'выигранных тендеров', color: '#4a6fa5', business: '+40% выигранных тендеров = +75% выручки. Компания получает контракты, которые раньше проигрывала.' },
+  { title: 'AI-скоринг лидов и маршрутизация', result: 'Скорость ×3 · конверсия +31%', metric: '2 млн', metricLabel: 'экономия ФОТ/год', color: '#5a8a7a', business: '2 млн ₽ экономии ФОТ в год. Менеджеры работают только с «горячими» лидами — конверсия +31%.' },
+  { title: 'Архитектура AI-ассистента СБЕР-тройки', result: 'Утверждённая архитектура для финтех-экосистемы', metric: 'LLM+RAG', metricLabel: 'pipeline', color: '#3d6b8a', business: 'Архитектура для финтех-экосистемы уровня СБЕР. Снижение рисков и времени выхода на рынок.' },
+  { title: 'CRM-платформа с AI-агентным кодингом', result: 'Автогенерация модулей, AI-ответы, аналитика чатов', metric: 'AI-CRM', metricLabel: 'full-stack', color: '#6b7fa3', business: 'Скорость разработки ×3 за счёт AI-агентного кодинга. Экономия на найме и ускорение time-to-market.' },
+  { title: 'AI-анализ Telegram-чатов', result: 'Авто-выявление задач, сентимент, дашборд', metric: '24/7', metricLabel: 'мониторинг', color: '#4a6fa5', business: 'Мониторинг 24/7 без людей. Раннее выявление проблем = сохранение клиентов и выручки.' },
+  { title: 'Архитектура Web App — Andara Energy', result: 'Стек, модель данных, интеграции, безопасность', metric: 'Roadmap', metricLabel: 'ready-to-build', color: '#5a8a7a', business: 'Готовый roadmap = предсказуемый бюджет и сроки. Инвестор видит понятный план до запуска.' },
 ]
 
 const timeline = [
@@ -438,20 +438,34 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-6">
             {projects.map((p, i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <div className="glass-card p-6 md:p-8 group hoverable relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-[60px] opacity-20" style={{ background: p.color }} />
-                  <div className="relative z-10">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold" style={{ background: `${p.color}20`, color: p.color }}>
-                        {String(i + 1).padStart(2, '0')}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold" style={{ color: p.color }}>{p.metric}</div>
-                        <div className="text-xs text-white/40">{p.metricLabel}</div>
+                <div className="flip-card group hoverable" style={{ perspective: '1200px' }}>
+                  <div className="flip-card-inner relative">
+                    {/* FRONT */}
+                    <div className="flip-face glass-card p-6 md:p-8 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-[60px] opacity-20" style={{ background: p.color }} />
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold" style={{ background: `${p.color}20`, color: p.color }}>
+                            {String(i + 1).padStart(2, '0')}
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold" style={{ color: p.color }}>{p.metric}</div>
+                            <div className="text-xs text-white/40">{p.metricLabel}</div>
+                          </div>
+                        </div>
+                        <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-white transition-colors">{p.title}</h3>
+                        <p className="text-sm text-white/50 leading-relaxed">{p.result}</p>
+                        <div className="mt-4 text-xs text-white/30 flex items-center gap-1">Ценность для бизнеса →</div>
                       </div>
                     </div>
-                    <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-white transition-colors">{p.title}</h3>
-                    <p className="text-sm text-white/50 leading-relaxed">{p.result}</p>
+                    {/* BACK */}
+                    <div className="flip-face flip-back p-6 md:p-8 relative overflow-hidden flex flex-col justify-center" style={{ background: `linear-gradient(135deg, ${p.color}26, rgba(13,17,32,0.95))`, border: `1px solid ${p.color}40` }}>
+                      <div className="relative z-10">
+                        <div className="text-xs font-mono uppercase tracking-wider mb-3" style={{ color: p.color }}>Ценность для бизнеса</div>
+                        <div className="text-3xl md:text-4xl font-bold mb-3" style={{ color: p.color }}>{p.metric}</div>
+                        <p className="text-sm md:text-base text-white/80 leading-relaxed">{p.business}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Reveal>

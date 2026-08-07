@@ -82,6 +82,30 @@ body { background: var(--dark); color: var(--text); font-family: 'Inter', 'SF Pr
   transform: translateY(-2px);
 }
 
+/* ─── FLIP CARD ─── */
+.flip-card { cursor: pointer; }
+.flip-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1.5rem;
+}
+.flip-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+.flip-card .glass-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 /* ─── GLOWING BUTTON ─── */
 .btn-glow {
   position: relative;

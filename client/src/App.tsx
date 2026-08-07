@@ -2,12 +2,13 @@ import { useEffect, useRef, useState, lazy, Suspense } from 'react'
 import { motion, useInView, useScroll, useTransform, useSpring } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowRight, MapPin, Phone, Mail, Globe, Send, Github, ExternalLink, ChevronDown, Brain, Cpu, Rocket, Shield, Zap, Users } from 'lucide-react'
+import { ArrowRight, MapPin, Phone, Mail, Globe, Send, Github, ExternalLink, ChevronDown, Brain, Cpu, Rocket, Shield, Zap, Users, Linkedin } from 'lucide-react'
 import Hero3D from './components/Hero3D'
 import InteractiveParticles from './components/InteractiveParticles'
 import FloatingOrbs from './components/FloatingOrbs'
 import NeuralCanvas from './components/NeuralCanvas'
 import GravityParticles from './components/GravityParticles'
+import ScrollSnake from './components/ScrollSnake'
 import { TextReveal, Spotlight } from './components/Effects'
 
 // Register GSAP plugins
@@ -208,6 +209,7 @@ export default function App() {
 
   return (
     <div className="noise-overlay min-h-screen bg-brand-dark text-white">
+      <ScrollSnake />
       <FloatingOrbs />
 
       {/* ── SCROLL PROGRESS ── */}
@@ -594,6 +596,9 @@ export default function App() {
               </a>
               <a href="mailto:romanoffalex@artifica.tech" className="flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/70 hover:border-accent-purple/30 hover:text-white transition-all">
                 <Mail size={18} /> Email
+              </a>
+              <a href="https://www.linkedin.com/in/romanoffalex/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 text-white/70 hover:border-accent-blue/40 hover:text-white transition-all">
+                <Linkedin size={18} /> LinkedIn
               </a>
             </div>
           </Reveal>

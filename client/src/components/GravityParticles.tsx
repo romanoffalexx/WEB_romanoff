@@ -27,7 +27,7 @@ export default function GravityParticles() {
     const BOUNCE_LOSS = 0.55    // energy kept after bounce (0.55 = 45% lost)
     const FLOOR_FRICTION = 0.98
     const MIN_BOUNCE_V = 0.6    // stop bouncing below this speed
-    const COUNT = isLowEnd ? 50 : 100
+    const COUNT = isLowEnd ? 12 : 25
 
     const colors = ['#6b7fa3', '#4a6fa5', '#5a8a7a', '#8a9ab5', '#3d6b8a', '#c0c8d8']
 

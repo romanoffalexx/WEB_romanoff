@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * Interactive Particles — exact implementation from brunoimbrizi/interactive-particles
@@ -6,6 +6,8 @@ import { useEffect, useRef } from 'react'
  */
 export default function InteractiveParticles() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
     let animId: number
@@ -20,7 +22,9 @@ export default function InteractiveParticles() {
     const isLowEnd = navigator.hardwareConcurrency <= 2
 
     async function init() {
+      setProgress(5)
       const THREE = await import('three')
+      setProgress(25)
       const container = containerRef.current
       if (!container) return
 
@@ -47,18 +51,54 @@ export default function InteractiveParticles() {
       renderer.setClearColor(0x000000, 0)
       container.appendChild(renderer.domElement)
 
-      // ── Load image ─
-      function loadImage(src: string): Promise<HTMLImageElement> {
-        return new Promise((resolve, reject) => {
-          const img = new Image()
-          img.crossOrigin = 'anonymous'
+      // ── Load image with real byte progress (25% → 85%) ──
+      async function loadImageWithProgress(
+        src: string,
+        onProgress: (frac: number) => void
+      ): Promise<HTMLImageElement> {
+        try {
+          const res = await fetch(src)
+          const total = Number(res.headers.get('content-length')) || 0
+          if (res.body && total) {
+            const reader = res.body.getReader()
+            let received = 0
+            const chunks: Uint8Array[] = []
+            for (;;) {
+              const { done, value } = await reader.read()
+              if (done) break
+              chunks.push(value)
+              received += value.length
+              onProgress(received / total)
+            }
+            const blob = new Blob(chunks as BlobPart[])
+            const url = URL.createObjectURL(blob)
+            const img = new Image()
+            await new Promise((resolve, reject) => {
+              img.onload = () => resolve(img)
+              img.onerror = reject
+              img.src = url
+            })
+            URL.revokeObjectURL(url)
+            return img
+          }
+        } catch {
+          // fall through to plain Image loader
+        }
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        await new Promise((resolve, reject) => {
           img.onload = () => resolve(img)
           img.onerror = reject
           img.src = src
         })
+        onProgress(1)
+        return img
       }
 
-      const img = await loadImage('/assets/photo-hero.png?v=3')
+      const img = await loadImageWithProgress('/assets/photo-hero.png?v=3', (frac) => {
+        setProgress(25 + Math.round(frac * 60))
+      })
+      setProgress(90)
 
       // Image dimensions
       const imgWidth = 160
@@ -386,6 +426,7 @@ export default function InteractiveParticles() {
       }
 
       let time = 0
+      let firstFrame = true
 
       function animate() {
         animId = requestAnimationFrame(animate)
@@ -396,7 +437,15 @@ export default function InteractiveParticles() {
         updateTouchTexture()
 
         renderer.render(scene, camera)
+
+        // Hide the loader after the first rendered frame
+        if (firstFrame) {
+          firstFrame = false
+          setProgress(100)
+          setTimeout(() => setHidden(true), 600)
+        }
       }
+      setProgress(95)
       animate()
 
       function onResize() {
@@ -453,10 +502,44 @@ export default function InteractiveParticles() {
   }, [])
 
   return (
-    <div
-      ref={containerRef}
-      className="absolute inset-0 overflow-hidden"
-      style={{ zIndex: 0 }}
-    />
+    <>
+      <div
+        ref={containerRef}
+        className="absolute inset-0 overflow-hidden"
+        style={{ zIndex: 0 }}
+      />
+
+      {/* ── Loading progress ring ── */}
+      {!hidden && (
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            zIndex: 5,
+            background: 'rgba(6, 9, 20, 0.55)',
+            opacity: progress >= 100 ? 0 : 1,
+            transition: 'opacity 0.5s ease',
+            pointerEvents: progress >= 100 ? 'none' : 'auto',
+          }}
+        >
+          <div className="relative w-24 h-24">
+            <svg viewBox="0 0 100 100" className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
+              {/* Track */}
+              <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="6" />
+              {/* Progress arc */}
+              <circle
+                cx="50" cy="50" r="44" fill="none"
+                stroke="#6b7fa3" strokeWidth="6" strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 44}`}
+                strokeDashoffset={`${2 * Math.PI * 44 * (1 - progress / 100)}`}
+                style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center text-white text-lg font-semibold tabular-nums">
+              {Math.round(progress)}%
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

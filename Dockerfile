@@ -1,4 +1,5 @@
 # ── Этап 1: сборка ──
+# v2.0 - SEO + LinkedIn + flip cards
 FROM node:20-alpine AS build
 WORKDIR /app
 

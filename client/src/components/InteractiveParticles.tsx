@@ -331,6 +331,7 @@ export default function InteractiveParticles() {
 
         if (mousePos) {
           // Convert mouse position to image coordinates
+          if (!container) return
           const rect = container.getBoundingClientRect()
           const relX = mousePos.x - rect.left
           const relY = mousePos.y - rect.top

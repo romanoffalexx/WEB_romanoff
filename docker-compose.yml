@@ -2,8 +2,6 @@ services:
   web:
     build: .
     container_name: romanoff-portfolio
-    ports:
-      - "8080:80"
     restart: unless-stopped
     networks:
       - dokploy-network
@@ -11,3 +9,4 @@ services:
 networks:
   dokploy-network:
     external: true
+    name: dokploy-network

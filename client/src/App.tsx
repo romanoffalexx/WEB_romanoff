@@ -169,13 +169,97 @@ const skills = [
 ]
 
 const projects = [
-  { title: 'AI-автоматизация торгов по банкротству', result: '4 000 лотов/день · точность 89% · ROI 230%', metric: '8.5 млн', metricLabel: 'чистая прибыль/год', color: '#6b7fa3', business: '8.5 млн ₽ чистой прибыли в год. Автоматизация заменила ручной труд аналитиков — экономия ФОТ и рост маржи.' },
-  { title: 'AI-автоматизация тендерных закупок', result: '100 заявок/день · выручка +75%', metric: '+40%', metricLabel: 'выигранных тендеров', color: '#4a6fa5', business: '+40% выигранных тендеров = +75% выручки. Компания получает контракты, которые раньше проигрывала.' },
-  { title: 'AI-скоринг лидов и маршрутизация', result: 'Скорость ×3 · конверсия +31%', metric: '2 млн', metricLabel: 'экономия ФОТ/год', color: '#5a8a7a', business: '2 млн ₽ экономии ФОТ в год. Менеджеры работают только с «горячими» лидами — конверсия +31%.' },
-  { title: 'Архитектура AI-ассистента СБЕР-тройки', result: 'Утверждённая архитектура для финтех-экосистемы', metric: 'LLM+RAG', metricLabel: 'pipeline', color: '#3d6b8a', business: 'Архитектура для финтех-экосистемы уровня СБЕР. Снижение рисков и времени выхода на рынок.' },
-  { title: 'CRM-платформа с AI-агентным кодингом', result: 'Автогенерация модулей, AI-ответы, аналитика чатов', metric: 'AI-CRM', metricLabel: 'full-stack', color: '#6b7fa3', business: 'Скорость разработки ×3 за счёт AI-агентного кодинга. Экономия на найме и ускорение time-to-market.' },
-  { title: 'AI-анализ Telegram-чатов', result: 'Авто-выявление задач, сентимент, дашборд', metric: '24/7', metricLabel: 'мониторинг', color: '#4a6fa5', business: 'Мониторинг 24/7 без людей. Раннее выявление проблем = сохранение клиентов и выручки.' },
-  { title: 'Архитектура Web App — Andara Energy', result: 'Стек, модель данных, интеграции, безопасность', metric: 'Roadmap', metricLabel: 'ready-to-build', color: '#5a8a7a', business: 'Готовый roadmap = предсказуемый бюджет и сроки. Инвестор видит понятный план до запуска.' },
+  {
+    title: 'AI-автоматизация торгов по банкротству',
+    result: '4 000 лотов/день · точность 89% · ROI 230%',
+    metric: '8.5 млн',
+    metricLabel: 'чистая прибыль/год',
+    color: '#6b7fa3',
+    business: '8.5 млн ₽ чистой прибыли в год. Автоматизация заменила ручной труд аналитиков — экономия ФОТ и рост маржи.',
+    problem: 'Ручной анализ 50+ лотов в день. Команда аналитиков тратила 8 часов на поиск ликвидных объектов и оценку рисков.',
+    role: 'CTO & архитектор решения',
+    solution: 'AI-пайплайн для парсинга 40+ источников, скоринга лотов по 20+ параметрам и автоматической генерации отчётов.',
+    stack: 'Python, FastAPI, PostgreSQL, LLM RAG, Docker',
+    link: 'https://artifica.tech/cases/ai-seo-agent',
+  },
+  {
+    title: 'AI-автоматизация тендерных закупок',
+    result: '100 заявок/день · выручка +75%',
+    metric: '+40%',
+    metricLabel: 'выигранных тендеров',
+    color: '#4a6fa5',
+    business: '+40% выигранных тендеров = +75% выручки. Компания получает контракты, которые раньше проигрывала.',
+    problem: 'Менеджеры тратили 3-4 часа на подготовку каждой заявки. Низкая скорость подачи и ошибки в документации.',
+    role: 'CTO & руководитель проекта',
+    solution: 'AI-агент для автозаполнения заявок, проверки соответствия требованиям и генерации пакета документов.',
+    stack: 'Python, LangChain, FastAPI, React, PostgreSQL',
+    link: 'https://artifica.tech/cases/ai-seo-agent',
+  },
+  {
+    title: 'AI-скоринг лидов и маршрутизация',
+    result: 'Скорость ×3 · конверсия +31%',
+    metric: '2 млн',
+    metricLabel: 'экономия ФОТ/год',
+    color: '#5a8a7a',
+    business: '2 млн ₽ экономии ФОТ в год. Менеджеры работают только с «горячими» лидами — конверсия +31%.',
+    problem: '10 000+ лидов в месяц без приоритизации. Менеджеры обрабатывали всех подряд, теряя «горячих» клиентов.',
+    role: 'Архитектор AI-системы',
+    solution: 'ML-модель скоринга по 50+ признакам, автоматическая маршрутизация в CRM, алерты менеджерам.',
+    stack: 'Python, ML, FastAPI, Bitrix24 API, Redis',
+    link: 'https://artifica.tech/cases/ai-seo-agent',
+  },
+  {
+    title: 'Архитектура AI-ассистента для крупной финтех-экосистемы',
+    result: 'LLM + RAG, модель данных, контуры безопасности и интеграции',
+    metric: 'LLM+RAG',
+    metricLabel: 'pipeline',
+    color: '#3d6b8a',
+    business: 'Архитектура для финтех-экосистемы уровня СБЕР. Снижение рисков и времени выхода на рынок.',
+    problem: 'Крупная финтех-экосистема нуждалась в AI-ассистенте с соблюдением требований безопасности и регуляторики.',
+    role: 'AI-архитектор',
+    solution: 'Проектирование LLM + RAG архитектуры, контуров безопасности, модели данных и интеграций. Детали ограничены NDA.',
+    stack: 'LLM, RAG, Vector DB, Python, Docker',
+    link: 'https://artifica.tech/cases',
+  },
+  {
+    title: 'CRM-платформа с AI-агентным кодингом',
+    result: 'Автогенерация модулей, AI-ответы, аналитика чатов',
+    metric: 'AI-CRM',
+    metricLabel: 'full-stack',
+    color: '#6b7fa3',
+    business: 'Скорость разработки ×3 за счёт AI-агентного кодинга. Экономия на найме и ускорение time-to-market.',
+    problem: 'Ручная разработка CRM-модулей занимала недели. Нужна была автоматизация генерации типовых компонентов.',
+    role: 'CTO & Full-stack разработчик',
+    solution: 'AI-агент для автогенерации модулей CRM, интеграция AI-ответов, аналитика чатов и дашборды.',
+    stack: 'React, FastAPI, PostgreSQL, LLM, Docker',
+    link: 'https://artifica.tech/cases',
+  },
+  {
+    title: 'AI-анализ Telegram-чатов',
+    result: 'Авто-выявление задач, сентимент, дашборд',
+    metric: '24/7',
+    metricLabel: 'мониторинг',
+    color: '#4a6fa5',
+    business: 'Мониторинг 24/7 без людей. Раннее выявление проблем = сохранение клиентов и выручки.',
+    problem: 'Менеджеры вручную читали сотни сообщений в день, пропуская важные запросы и жалобы.',
+    role: 'Архитектор & разработчик',
+    solution: 'AI-пайплайн для анализа чатов: выявление задач, анализ сентимента, алерты и дашборд.',
+    stack: 'Python, aiogram, LLM, PostgreSQL, Grafana',
+    link: 'https://artifica.tech/cases',
+  },
+  {
+    title: 'Архитектура Web App — Andara Energy',
+    result: 'Стек, модель данных, интеграции, безопасность',
+    metric: 'Roadmap',
+    metricLabel: 'ready-to-build',
+    color: '#5a8a7a',
+    business: 'Готовый roadmap = предсказуемый бюджет и сроки. Инвестор видит понятный план до запуска.',
+    problem: 'Стартапу нужен был готовый план разработки до инвестиций: архитектура, стек, сроки и бюджет.',
+    role: 'Технический консультант',
+    solution: 'Полная архитектура: выбор стека, модель данных, интеграции, безопасность, roadmap разработки.',
+    stack: 'React, Node.js, PostgreSQL, Docker, AWS',
+    link: 'https://artifica.tech/cases',
+  },
 ]
 
 const timeline = [
@@ -456,16 +540,31 @@ export default function App() {
                           </div>
                         </div>
                         <h3 className="text-lg md:text-xl font-semibold mb-2 group-hover:text-white transition-colors">{p.title}</h3>
-                        <p className="text-sm text-white/50 leading-relaxed">{p.result}</p>
-                        <div className="mt-4 text-xs text-white/30 flex items-center gap-1">Ценность для бизнеса →</div>
+                        <p className="text-sm text-white/50 leading-relaxed mb-2">{p.result}</p>
+                        {p.problem && (
+                          <div className="text-xs text-white/40 italic">{p.problem}</div>
+                        )}
+                        <div className="mt-4 text-xs text-white/30 flex items-center gap-1">Решение и результат →</div>
                       </div>
                     </div>
                     {/* BACK */}
                     <div className="flip-face flip-back p-6 md:p-8 relative overflow-hidden flex flex-col justify-center" style={{ background: `linear-gradient(135deg, ${p.color}26, rgba(13,17,32,0.95))`, border: `1px solid ${p.color}40` }}>
                       <div className="relative z-10">
-                        <div className="text-xs font-mono uppercase tracking-wider mb-3" style={{ color: p.color }}>Ценность для бизнеса</div>
-                        <div className="text-3xl md:text-4xl font-bold mb-3" style={{ color: p.color }}>{p.metric}</div>
-                        <p className="text-sm md:text-base text-white/80 leading-relaxed">{p.business}</p>
+                        {p.role && (
+                          <div className="text-[10px] font-mono uppercase tracking-wider mb-2" style={{ color: p.color }}>{p.role}</div>
+                        )}
+                        <p className="text-sm text-white/80 leading-relaxed mb-2">{p.business}</p>
+                        {p.solution && (
+                          <p className="text-xs text-white/60 mb-2"><span className="font-semibold">Решение:</span> {p.solution}</p>
+                        )}
+                        {p.stack && (
+                          <p className="text-xs text-white/50 mb-2"><span className="font-semibold">Стек:</span> {p.stack}</p>
+                        )}
+                        {p.link && (
+                          <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-semibold hover:underline" style={{ color: p.color }}>
+                            Подробнее <ExternalLink size={12} />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>

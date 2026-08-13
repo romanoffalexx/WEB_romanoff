@@ -21,7 +21,23 @@
 /* ─── BASE ─── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--dark); color: var(--text); font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  /* Prevent text selection cursor on click (Firefox issue) */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Allow selection for links and interactive elements */
+a, button, input, textarea {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
 
 /* ─── CUSTOM CURSOR ─── */
 .cursor-dot {
@@ -94,12 +110,27 @@ body { background: var(--dark); color: var(--text); font-family: 'Inter', 'SF Pr
 .flip-face {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  transform-style: preserve-3d;
   border-radius: 1.5rem;
 }
 .flip-back {
   position: absolute;
   inset: 0;
   transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+}
+/* Firefox-specific fix for flip card text overlap */
+@-moz-document url-prefix() {
+  .flip-face {
+    backface-visibility: hidden !important;
+    transform-style: preserve-3d !important;
+  }
+  .flip-back {
+    backface-visibility: hidden !important;
+  }
 }
 .flip-card .glass-card:hover {
   transform: none;
